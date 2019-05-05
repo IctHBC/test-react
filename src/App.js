@@ -4,40 +4,36 @@ import Titles from "./components/Titles";
 import Form from "./components/Form";
 import Weather from "./components/Weather";
 
-const API_KEY = "7b31fc51d965595f7ad494ff430bf91f";
+const API_KEY = "jlWKItApuIeOLXI9iosMENT9IgW5LiOaMVGYNe0OZtHgjirDLQKx5BXBxgnrMdcmrgPVY93fy4ZFbj6SeDbkJw%3D%3D";
 
 class App extends React.Component {
   state = {
-    temperature: undefined,
-    city: undefined,
-    country: undefined,
-    humidity: undefined,
-    description: undefined,
+    sido: undefined,
+    stationName: undefined,
+    pm10: undefined,
+    pm25: undefined,
     error: undefined
   }
   getWeather = async (e) => {
     e.preventDefault();
-    const city = e.target.elements.city.value;
-    const country = e.target.elements.country.value;
-    const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`);
+    const sido = e.target.elements.sido.value;
+    const api_call = await fetch(`http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=${sido}&pageNo=1&numOfRows=10&ServiceKey=${API_KEY}&ver=1.3&_returnType=json/todos`);
     const data = await api_call.json();
-    if (city && country) {
+    if (sido) {
       this.setState({
-        temperature: data.main.temp,
-        city: data.name,
-        country: data.sys.country,
-        humidity: data.main.humidity,
-        description: data.weather[0].description,
+        sido: data.list[0].sidoName,
+        stationName:data.list[0].stationName,
+        pm10:data.list[0].pm10Value,
+        pm25:data.list[0].pm25Value,
         error: ""
       });
     } else {
       this.setState({
-        temperature: undefined,
-        city: undefined,
-        country: undefined,
-        humidity: undefined,
-        description: undefined,
-        error: "Please enter the values."
+        sido: undefined,
+        stationName: undefined,
+        pm10: undefined,
+        pm25: undefined,
+        error: "도시를 입력해주세요."
       });
     }
   }
@@ -54,11 +50,10 @@ class App extends React.Component {
                 <div className="col-xs-7 form-container">
                   <Form getWeather={this.getWeather} />
                   <Weather 
-                    temperature={this.state.temperature} 
-                    humidity={this.state.humidity}
-                    city={this.state.city}
-                    country={this.state.country}
-                    description={this.state.description}
+                    sido={this.state.sido}
+                    stationName={this.state.stationName}
+                    pm10={this.state.pm10} 
+                    pm25={this.state.pm25}
                     error={this.state.error}
                   />
                 </div>

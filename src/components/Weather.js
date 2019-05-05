@@ -1,29 +1,29 @@
 import React from "react";
 
 const Weather = props => (
-	<div className="weather__info">
+	<div className="fine_dust__info">
 	 {	
-	 	props.city && props.country && <p className="weather__key"> Location: 
-	 		<span className="weather__value"> { props.city }, { props.country }</span>
+	 	props.sido && <p className="fine_dust__key"> Location: 
+	 		<span className="fine_dust__value"> { props.sido }</span>
 	 	</p> 
 	 }
 	 { 	
-	 	props.temperature && <p className="weather__key"> Temperature: 
-	 		<span className="weather__value"> { props.temperature }	</span>
-	 	</p> 
-	 }
-	 { 	
-	 	props.humidity && <p className="weather__key"> Humidity: 
-	 		<span className="weather__value"> { props.humidity } </span>
-	 	</p> 
-	 }
-	 { 	
-	 	props.description && <p className="weather__key"> Conditions: 
-	 		<span className="weather__value"> { props.description } </span>
+	 	props.stationName && <p className="fine_dust__key"> Stationname: 
+	 		<span className="fine_dust__value"> { props.stationName } </span>
 	 </p> 
 	 }
+	 { 	
+	 	props.pm10 && <p className="fine_dust__key"> PM10: 
+	 		<span className="fine_dust__value"> { props.pm10 }	</span>
+	 	</p> 
+	 }
+	 { 	
+	 	props.pm25 && <p className="fine_dust__key"> PM25: 
+	 		<span className="fine_dust__value"> { props.pm25 } </span>
+	 	</p> 
+	 }
 	 { 
-	 	props.error && <p className="weather__error">{ props.error }</p>  
+	 	props.error && <p className="fine_dust__error">{ props.error }</p>  
 	 }
 	</div>
 );
